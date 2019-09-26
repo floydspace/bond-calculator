@@ -44,8 +44,6 @@ testAssoc(bond, 'rate', -0.001);
 
 testAssoc(bond, 'redemption', -1);
 
-testAssoc(bond, 'frequency', 12);
-
 testAssoc(bond, 'convention', 'UNKNOWN');
 
 test('returns a object with price and yield functions', (t) => {

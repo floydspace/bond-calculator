@@ -68,7 +68,7 @@ test('accrued UNKNOWN date1 and date2 end of february', (t) => {
   t.is(accrued(new Date(2000, 1, 29), new Date(2001, 1, 28), 'UNKNOWN'), 360);
 });
 
-test('dates maturity not end of month', (t) => {
+test('dates maturity not end of month for yarly frequency', (t) => {
   t.deepEqual(dates(new Date(2000, 2, 10), new Date(2020, 4, 20), 1), [
     new Date(1997, 4, 20),
     new Date(1998, 4, 20),
@@ -80,7 +80,19 @@ test('dates maturity not end of month', (t) => {
   ]);
 });
 
-test('dates maturity end of month', (t) => {
+test('dates maturity not end of month for semi-annually frequency', (t) => {
+  t.deepEqual(dates(new Date(2000, 2, 10), new Date(2020, 4, 20), 2), [
+    new Date(1998, 10, 20),
+    new Date(1999, 4, 20),
+    new Date(1999, 10, 20),
+    new Date(2000, 4, 20),
+    new Date(2000, 10, 20),
+    new Date(2001, 4, 20),
+    new Date(2001, 10, 20),
+  ]);
+});
+
+test('dates maturity end of month for quarterly frequency', (t) => {
   t.deepEqual(dates(new Date(2000, 2, 10), new Date(2020, 4, 31), 4), [
     new Date(1999, 7, 31),
     new Date(1999, 10, 30),
@@ -89,6 +101,34 @@ test('dates maturity end of month', (t) => {
     new Date(2000, 7, 31),
     new Date(2000, 10, 30),
     new Date(2001, 1, 28),
+  ]);
+});
+
+test('dates maturity end of month for monthly frequency', (t) => {
+  t.deepEqual(dates(new Date(2000, 2, 10), new Date(2020, 4, 31), 12), [
+    new Date(1999, 5, 30),
+    new Date(1999, 6, 31),
+    new Date(1999, 7, 31),
+    new Date(1999, 8, 30),
+    new Date(1999, 9, 31),
+    new Date(1999, 10, 30),
+    new Date(1999, 11, 31),
+    new Date(2000, 0, 31),
+    new Date(2000, 1, 29),
+    new Date(2000, 2, 31),
+    new Date(2000, 3, 30),
+    new Date(2000, 4, 31),
+    new Date(2000, 5, 30),
+    new Date(2000, 6, 31),
+    new Date(2000, 7, 31),
+    new Date(2000, 8, 30),
+    new Date(2000, 9, 31),
+    new Date(2000, 10, 30),
+    new Date(2000, 11, 31),
+    new Date(2001, 0, 31),
+    new Date(2001, 1, 28),
+    new Date(2001, 2, 31),
+    new Date(2001, 3, 30),
   ]);
 });
 

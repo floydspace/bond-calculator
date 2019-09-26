@@ -1,6 +1,6 @@
 {
   "name": "@floydspace/bond-calculator",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Yield and price calculations for bonds",
   "main": "dist/index.js",
   "scripts": {

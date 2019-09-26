@@ -7,7 +7,7 @@ const schema = Joi.object().keys({
   maturity: Joi.date().required(),
   rate: Joi.number().min(0).max(1).required(),
   redemption: Joi.number().positive().required(),
-  frequency: Joi.number().valid([1, 2, 4]).required(),
+  frequency: Joi.number().valid([1, 2, 4, 12]).required(),
   convention: Joi.string().valid([
     '30U/360',
     'ACTUAL/ACTUAL',

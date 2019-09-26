@@ -70,7 +70,7 @@ export const dates = (settlement, maturity, frequency) => R.map(
     R.when(R.always(isEndOfMonth(maturity)), startOfEndOfMonth),
     addPeriods(changeYear(maturity, settlement), frequency)
   ),
-  R.range(-3, 4)
+  R.range(1 - R.max(4)(frequency), R.max(4)(frequency))
 );
 
 export const previous = (settlement, maturity, frequency) => R.compose(
