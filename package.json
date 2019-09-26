@@ -1,6 +1,6 @@
 {
   "name": "@floydspace/bond-calculator",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Yield and price calculations for bonds",
   "main": "dist/index.js",
   "scripts": {
@@ -44,8 +44,8 @@
     }
   },
   "dependencies": {
+    "@hapi/joi": "^15.1.1",
     "date-fns": "^1.29.0",
-    "joi": "^14.3.0",
     "ramda": "^0.26.1"
   },
   "devDependencies": {

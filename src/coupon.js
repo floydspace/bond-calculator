@@ -1,11 +1,25 @@
 import R from 'ramda';
 
 import {
-  getYear, getMonth, getDate, differenceInDays, differenceInMonths, isBefore, isAfter, isEqual,
+  differenceInDays,
+  differenceInMonths,
+  getDate,
+  getMonth,
+  getYear,
+  isAfter,
+  isBefore,
+  isEqual,
 } from 'date-fns';
 
 import {
-  countDays30360, startOfEndOfMonth, isEndOfMonth, isEndOfFebruary, addPeriods, changeYear,
+  addPeriods,
+  baseCountDays30360,
+  changeYear,
+  countDays30360,
+  isEndOfFebruary,
+  isEndOfMonth,
+  min30,
+  startOfEndOfMonth,
 } from './utils';
 
 const differenceInMonthsC = R.curry(differenceInMonths);
@@ -46,7 +60,8 @@ export const accrued = (date1, date2, convention) => {
     default:
       if (isEndOfFebruary(date1)) d1 = 30;
       if (isEndOfFebruary(date1) && isEndOfFebruary(date2)) d2 = 30;
-      return countDays30360(d1, m1, y1, d2, m2, y2);
+
+      return R.curry(baseCountDays30360)(R.__, m1, y1, R.__, m2, y2)(min30(d1), d1 >= 30 ? min30(d2) : d2); // eslint-disable-line max-len
   }
 };
 
