@@ -13,7 +13,9 @@ const schema = Joi.object().keys({
     'ACTUAL/ACTUAL',
     'ACTUAL/360',
     'ACTUAL/365',
-    '30E/360']).required(),
+    '30E/360',
+    '30/360',
+  ]).required(),
 });
 
 module.exports = (bond) => {

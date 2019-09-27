@@ -13,12 +13,11 @@ import {
 
 import {
   addPeriods,
-  baseCountDays30360,
   changeYear,
   countDays30360,
+  countDays30E360,
   isEndOfFebruary,
   isEndOfMonth,
-  min30,
   startOfEndOfMonth,
 } from './utils';
 
@@ -34,6 +33,7 @@ export const days = (previous, next, frequency, convention) => {
       return differenceInDays(next, previous);
     case '30U/360':
     case '30E/360':
+    case '30/360':
     case 'ACTUAL/360':
     default:
       return 360 / frequency;
@@ -50,8 +50,10 @@ export const accrued = (date1, date2, convention) => {
   const y2 = getYear(date2);
 
   switch (convention) {
-    case '30E/360':
+    case '30/360':
       return countDays30360(d1, m1, y1, d2, m2, y2);
+    case '30E/360':
+      return countDays30E360(d1, m1, y1, d2, m2, y2);
     case 'ACTUAL/360':
     case 'ACTUAL/365':
     case 'ACTUAL/ACTUAL':
@@ -60,8 +62,7 @@ export const accrued = (date1, date2, convention) => {
     default:
       if (isEndOfFebruary(date1)) d1 = 30;
       if (isEndOfFebruary(date1) && isEndOfFebruary(date2)) d2 = 30;
-
-      return R.curry(baseCountDays30360)(R.__, m1, y1, R.__, m2, y2)(min30(d1), d1 >= 30 ? min30(d2) : d2); // eslint-disable-line max-len
+      return countDays30360(d1, m1, y1, d2, m2, y2);
   }
 };
 

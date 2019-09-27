@@ -15,24 +15,25 @@ The following day count conventions are supported:
 * ACTUAL/360
 * ACTUAL/365
 * 30E/360
+* 30/360
 
 More info about day count conventions can be found on [Wikipedia](https://en.wikipedia.org/wiki/Day_count_convention).
 
 ## Installation
 ```
-npm install --save bond-calculator
+npm install --save @floydspace/bond-calculator
 ```
 
 ## Usage
 ```javascript
-const bondCalculator = require('bond-calculator');
+const bondCalculator = require('@floydspace/bond-calculator');
 
 const bond = bondCalculator({
   settlement: '2016-12-26',
   maturity: '2023-01-17',
   rate: 0.02625, // 2.625%
   redemption: 100,
-  frequency: 2, // 1=Annual, 2=Semiannual, 4=Quarterly
+  frequency: 2, // 1=Annual, 2=Semiannual, 4=Quarterly, 12=Monthly
   convention: '30U/360',
 });
 

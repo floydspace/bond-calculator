@@ -32,6 +32,18 @@ test('accrued 30E/360', (t) => {
   t.is(accrued(new Date(2000, 0, 20), new Date(2000, 3, 15), '30E/360'), 10 + 30 + 30 + 15);
 });
 
+test('accrued 30E/360 date2 ends with 31', (t) => {
+  t.is(accrued(new Date(2000, 0, 20), new Date(2000, 2, 31), '30E/360'), 10 + 30 + 30);
+});
+
+test('accrued 30/360', (t) => {
+  t.is(accrued(new Date(2000, 0, 20), new Date(2000, 3, 15), '30/360'), 10 + 30 + 30 + 15);
+});
+
+test('accrued 30/360 date2 ends with 31', (t) => {
+  t.is(accrued(new Date(2000, 0, 20), new Date(2000, 2, 31), '30/360'), 10 + 30 + 31);
+});
+
 test('accrued ACTUAL/360', (t) => {
   t.is(accrued(new Date(2000, 0, 20), new Date(2000, 3, 15), 'ACTUAL/360'), 11 + 29 + 31 + 15);
 });
@@ -46,6 +58,10 @@ test('accrued ACTUAL/ACTUAL', (t) => {
 
 test('accrued 30U/360 not end of february', (t) => {
   t.is(accrued(new Date(2000, 0, 20), new Date(2000, 3, 15), '30U/360'), 10 + 30 + 30 + 15);
+});
+
+test('accrued 30U/360 date2 ends with 31', (t) => {
+  t.is(accrued(new Date(2000, 0, 20), new Date(2000, 2, 31), '30U/360'), 10 + 30 + 31);
 });
 
 test('accrued 30U/360 date1 end of february', (t) => {
