@@ -1,9 +1,8 @@
 # Bond calculator
 
-[![npm version](https://badge.fury.io/js/bond-calculator.svg)](https://badge.fury.io/js/bond-calculator)
-[![Build Status](https://travis-ci.org/goldwasserexchange/bond-calculator.svg?branch=master)](https://travis-ci.org/goldwasserexchange/bond-calculator)
-[![Coverage Status](https://coveralls.io/repos/github/goldwasserexchange/bond-calculator/badge.svg?branch=master)](https://coveralls.io/github/goldwasserexchange/bond-calculator?branch=master)
-[![Greenkeeper badge](https://badges.greenkeeper.io/goldwasserexchange/bond-calculator.svg)](https://greenkeeper.io/)
+[![npm version](https://badge.fury.io/js/%40floydspace%2Fbond-calculator.svg)](https://badge.fury.io/js/%40floydspace%2Fbond-calculator)
+[![Build Status](https://travis-ci.org/floydspace/bond-calculator.svg?branch=master)](https://travis-ci.org/floydspace/bond-calculator)
+[![Coverage Status](https://coveralls.io/repos/github/floydspace/bond-calculator/badge.svg?branch=master)](https://coveralls.io/github/floydspace/bond-calculator?branch=master)
 
 Yield and price calculations for bonds.
 
