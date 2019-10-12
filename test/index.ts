@@ -2,21 +2,22 @@ import test from 'ava';
 
 import R from 'ramda';
 
-import bondCalculator from '../src/index';
+import bondCalculator, { Bond } from '../src/index';
 
-const errorContains = (error, msg) => error.message.indexOf(msg) !== -1;
+const errorContains = (error: Error, msg: string) => error.message.indexOf(msg) !== -1;
 
 const testMissing = R.curry((testBond, prop) => test(`throws if ${prop} is missing`, (t) => {
   const error = t.throws(() => R.compose(bondCalculator, R.dissoc(prop))(testBond));
   t.true(errorContains(error, prop));
 }));
 
-const testAssoc = (testBond, prop, val) => test(`throws if ${prop} is ${val}`, (t) => {
-  const error = t.throws(() => R.compose(bondCalculator, R.assoc(prop, val))(testBond));
+const testAssoc = (testBond: Bond, prop: string, val: string | number) => test(`throws if ${prop} is ${val}`, (t) => {
+  const assignProp: (obj: Bond) => Bond = R.assoc(prop, val);
+  const error = t.throws(() => R.compose(bondCalculator, assignProp)(testBond));
   t.true(errorContains(error, prop));
 });
 
-const testMissingsKeys = testBond => R.compose(R.map(testMissing(testBond)), R.keys)(testBond);
+const testMissingsKeys = (testBond: Bond) => R.compose(R.map(testMissing(testBond)), R.keys)(testBond);
 
 const hasPriceYield = R.both(R.has('price'), R.has('yield'));
 

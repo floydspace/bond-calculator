@@ -2,6 +2,15 @@ import Joi from '@hapi/joi';
 
 import { calcPrice, calcYield } from './bond';
 
+export interface Bond {
+  settlement: string;
+  maturity: string;
+  rate: number;
+  redemption: number;
+  frequency: number;
+  convention: string;
+}
+
 const schema = Joi.object().keys({
   settlement: Joi.date().max(Joi.ref('maturity')).required(),
   maturity: Joi.date().required(),
@@ -18,7 +27,7 @@ const schema = Joi.object().keys({
   ]).required(),
 });
 
-module.exports = (bond) => {
+export default (bond?: Bond) => {
   if (!bond) throw new Error('A bond object is required');
 
   const validation = Joi.validate(bond, schema);
@@ -28,7 +37,7 @@ module.exports = (bond) => {
   const validBond = validation.value;
 
   return {
-    price: yld => calcPrice(
+    price: (yld: number) => calcPrice(
       validBond.settlement,
       validBond.maturity,
       validBond.rate,
@@ -37,7 +46,7 @@ module.exports = (bond) => {
       validBond.frequency,
       validBond.convention
     ),
-    yield: price => calcYield(
+    yield: (price: number) => calcYield(
       validBond.settlement,
       validBond.maturity,
       validBond.rate,

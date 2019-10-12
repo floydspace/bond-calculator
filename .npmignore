@@ -45,3 +45,5 @@ jspm_packages
 # Config files
 .babelrc
 .eslintrc
+.nycrc
+tsconfig.json

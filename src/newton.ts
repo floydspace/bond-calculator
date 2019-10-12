@@ -4,7 +4,7 @@ const dTol = R.defaultTo(1e-13);
 const dEps = R.defaultTo(1e-14);
 const dMaxIter = R.defaultTo(100);
 
-const _newton = (f, fp, x0, tol, eps, maxIter, iter) => {
+const _newton = (f: (x: number) => number, fp: (x: number) => number, x0: number, tol: number, eps: number, maxIter: number, iter: number): number => {
   if (iter > maxIter) return x0;
 
   const y = f(x0);
@@ -19,6 +19,6 @@ const _newton = (f, fp, x0, tol, eps, maxIter, iter) => {
   return _newton(f, fp, x1, tol, eps, maxIter, iter + 1);
 };
 
-export default function (f, fp, x0, tol, eps, maxIter) {
+export default function (f: (x: number) => number, fp: (x: number) => number, x0: number, tol?: number, eps?: number, maxIter?: number) {
   return _newton(f, fp, x0, dTol(tol), dEps(eps), dMaxIter(maxIter), 0);
 }

@@ -8,13 +8,13 @@ import {
 
 import newton from './newton';
 
-const _price = (rate, yld, redemption, frequency, DSC, E, N, A) => R.reduce(
+const _price = (rate: number, yld: number, redemption: number, frequency: number, DSC: number, E: number, N: number, A: number) => R.reduce(
   (acc, k) => acc + 100 * rate / frequency / (1 + yld / frequency) ** (k - 1 + DSC / E),
   redemption / (1 + yld / frequency) ** (N - 1 + DSC / E) - 100 * rate / frequency * A / E,
   R.range(1, N + 1)
 );
 
-export const calcPrice = (settlement, maturity, rate, yld, redemption, frequency, convention) => {
+export const calcPrice = (settlement: string, maturity: string, rate: number, yld: number, redemption: number, frequency: number, convention: string) => {
   const previous = previousCoupon(settlement, maturity, frequency);
   const next = nextCoupon(settlement, maturity, frequency);
   const E = days(previous, next, frequency, convention);
@@ -32,7 +32,7 @@ export const calcPrice = (settlement, maturity, rate, yld, redemption, frequency
   return _price(rate, yld, redemption, frequency, DSC, E, N, A);
 };
 
-const dPriceDYld = (rate, yld, redemption, frequency, DSC, E, N) => R.reduce(
+const dPriceDYld = (rate: number, yld: number, redemption: number, frequency: number, DSC: number, E: number, N: number) => R.reduce(
   (acc, k) => acc - (100 * rate / frequency) ** 2
           * (k - 1 + DSC / E)
           * (1 + yld / frequency) ** (-(k + DSC / E)),
@@ -40,7 +40,7 @@ const dPriceDYld = (rate, yld, redemption, frequency, DSC, E, N) => R.reduce(
   R.range(1, N + 1)
 );
 
-export const calcYield = (settlement, maturity, rate, pr, redemption, frequency, convention) => {
+export const calcYield = (settlement: string, maturity: string, rate: number, pr: number, redemption: number, frequency: number, convention: string) => {
   const previous = previousCoupon(settlement, maturity, frequency);
   const next = nextCoupon(settlement, maturity, frequency);
   const A = accrued(previous, settlement, convention);
@@ -55,8 +55,8 @@ export const calcYield = (settlement, maturity, rate, pr, redemption, frequency,
            / (pr / 100 + A / E * rate / frequency) * frequency * E / DSC;
   }
 
-  const f = x => _price(rate, x, redemption, frequency, DSC, E, N, A) - pr;
-  const fp = x => dPriceDYld(rate, x, redemption, frequency, DSC, E, N);
+  const f = (x: number) => _price(rate, x, redemption, frequency, DSC, E, N, A) - pr;
+  const fp = (x: number) => dPriceDYld(rate, x, redemption, frequency, DSC, E, N);
 
   return newton(f, fp, rate);
 };

@@ -1,9 +1,12 @@
 {
     "presets": [
-        "@babel/preset-env"
+        "@babel/env",
+        "@babel/typescript"
     ],
     "plugins": [
         "@babel/plugin-transform-exponentiation-operator",
+        "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread",
         "ramda",
         "date-fns"
     ]

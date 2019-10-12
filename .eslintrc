@@ -1,10 +1,21 @@
 {
-    "extends": "airbnb",
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "airbnb",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/typescript"
+    ],
     "rules": {
-        "strict": 0,
-        "no-mixed-operators": 0,
-        "linebreak-style": 0,
-        "no-underscore-dangle": 0,
-        "comma-dangle": [2, "always-multiline"]
+        "max-len": "off",
+        "strict": "off",
+        "no-mixed-operators": "off",
+        "linebreak-style": "off",
+        "no-underscore-dangle": "off",
+        "comma-dangle": [
+            2,
+            "always-multiline"
+        ],
+        "object-curly-newline": "off",
+        "@typescript-eslint/explicit-function-return-type": "off"
     }
 }

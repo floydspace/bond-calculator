@@ -1,14 +1,21 @@
 import test from 'ava';
-
 import R from 'ramda';
 
+import { Bond } from '../src';
 import { calcPrice, calcYield } from '../src/bond';
 
-const title = bond => `${bond.settlement} ${bond.maturity} ${bond.rate} ${bond.redemption} ${bond.frequency} ${bond.price} ${bond.yield}`;
+interface BondExtension {
+  price: number;
+  yield: number;
+  prices: {[key: string]: number};
+  yields: {[key: string]: number};
+}
 
-const approxEqual = (a, b) => Math.abs(a - b) < 1e-10;
+const title = (bond: Bond & BondExtension) => `${bond.settlement} ${bond.maturity} ${bond.rate} ${bond.redemption} ${bond.frequency} ${bond.price} ${bond.yield}`;
 
-const testCalcPrice = (bond, price, convention) => test(`calcPrice ${title(bond)} ${convention}`, (t) => {
+const approxEqual = (a: number, b: number) => Math.abs(a - b) < 1e-10;
+
+const testCalcPrice = (bond: Bond & BondExtension, price: number, convention: string) => test(`calcPrice ${title(bond)} ${convention}`, (t) => {
   t.true(approxEqual(calcPrice(
     bond.settlement,
     bond.maturity,
@@ -20,7 +27,7 @@ const testCalcPrice = (bond, price, convention) => test(`calcPrice ${title(bond)
   ), price));
 });
 
-const testCalcYield = (bond, yld, convention) => test(`calcYield ${title(bond)} ${convention}`, (t) => {
+const testCalcYield = (bond: Bond & BondExtension, yld: number, convention: string) => test(`calcYield ${title(bond)} ${convention}`, (t) => {
   t.true(approxEqual(calcYield(
     bond.settlement,
     bond.maturity,
@@ -32,12 +39,12 @@ const testCalcYield = (bond, yld, convention) => test(`calcYield ${title(bond)} 
   ), yld));
 });
 
-const mapTestCalc = (testCalc, prop, bond) => R.compose(
-  R.mapObjIndexed((value, key) => testCalc(bond, value, key)),
-  R.prop(prop),
+const mapTestCalc = (testCalc: Function, prop: string, bond: Partial<Bond>) => R.compose(
+  R.mapObjIndexed<number, Bond>((value, key) => testCalc(bond, value, key)),
+  R.prop(prop) as (obj: Partial<Bond>) => Bond,
 )(bond);
 
-const testBonds = R.map(bond => mapTestCalc(testCalcPrice, 'prices', bond) && mapTestCalc(testCalcYield, 'yields', bond));
+const testBonds = R.map((bond: Partial<Bond>) => mapTestCalc(testCalcPrice, 'prices', bond) && mapTestCalc(testCalcYield, 'yields', bond));
 
 const bonds = [
   {

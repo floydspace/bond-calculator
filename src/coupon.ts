@@ -22,10 +22,10 @@ import {
 } from './utils';
 
 const differenceInMonthsC = R.curry(differenceInMonths);
-const isBeforeOrEqual = R.curry((dateLeft, dateRight) => R.either(isBefore, isEqual)(dateLeft, dateRight)); // eslint-disable-line max-len
+const isBeforeOrEqual = R.curry((dateLeft, dateRight) => R.either(isBefore, isEqual)(dateLeft, dateRight));
 const isAfterC = R.curry(isAfter);
 
-export const days = (previous, next, frequency, convention) => {
+export const days = (previous: Date | string, next: Date | string, frequency: number, convention: string) => {
   switch (convention) {
     case 'ACTUAL/365':
       return 365 / frequency;
@@ -40,7 +40,7 @@ export const days = (previous, next, frequency, convention) => {
   }
 };
 
-export const accrued = (date1, date2, convention) => {
+export const accrued = (date1: Date | string, date2: Date | string, convention: string) => {
   let d1 = getDate(date1);
   const m1 = getMonth(date1);
   const y1 = getYear(date1);
@@ -66,25 +66,25 @@ export const accrued = (date1, date2, convention) => {
   }
 };
 
-export const dates = (settlement, maturity, frequency) => R.map(
+export const dates = (settlement: Date | string, maturity: Date | string, frequency: number) => R.map(
   R.compose(
     R.when(R.always(isEndOfMonth(maturity)), startOfEndOfMonth),
     addPeriods(changeYear(maturity, settlement), frequency)
   ),
-  R.range(1 - R.max(4)(frequency), R.max(4)(frequency))
+  R.range(1 - R.max<number>(4)(frequency), R.max<number>(4)(frequency))
 );
 
-export const previous = (settlement, maturity, frequency) => R.compose(
+export const previous = (settlement: Date | string, maturity: Date | string, frequency: number) => R.compose(
   R.findLast(isBeforeOrEqual(R.__, settlement)),
   dates
 )(settlement, maturity, frequency);
 
-export const next = (settlement, maturity, frequency) => R.compose(
-  R.find(isAfterC(R.__, settlement)),
+export const next = (settlement: Date | string, maturity: Date | string, frequency: number) => R.compose(
+  R.find<any>(isAfterC(R.__, settlement)), // eslint-disable-line @typescript-eslint/no-explicit-any
   dates
 )(settlement, maturity, frequency);
 
-export const num = (settlement, maturity, frequency) => R.compose(
+export const num = (settlement: Date | string, maturity: Date | string, frequency: number) => R.compose(
   Math.ceil,
   R.add(1),
   R.multiply(frequency / 12),
