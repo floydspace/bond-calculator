@@ -1,6 +1,6 @@
 # Bond calculator
 
-[![npm version](https://badge.fury.io/js/%40floydspace%2Fbond-calculator.svg)](https://badge.fury.io/js/%40floydspace%2Fbond-calculator)
+[![npm (scoped)](https://img.shields.io/npm/v/@floydspace/bond-calculator?label=npm%20package)](https://www.npmjs.com/package/@floydspace/bond-calculator)
 [![Build Status](https://travis-ci.org/floydspace/bond-calculator.svg?branch=master)](https://travis-ci.org/floydspace/bond-calculator)
 [![Coverage Status](https://coveralls.io/repos/github/floydspace/bond-calculator/badge.svg?branch=master)](https://coveralls.io/github/floydspace/bond-calculator?branch=master)
 
